@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D85065EA-65E4-4B3C-9F27-9EFE4E0E4A1A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>UtilsKit</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>759b0c0f-3107-4923-b07f-fc262f88deed++7575</key>
+		<string>http://svn.letv.cn/ThreeScreens/LetvControlCenter/IPhone</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>UtilsKit/UtilsKit.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>759b0c0f-3107-4923-b07f-fc262f88deed++7575</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>759b0c0f-3107-4923-b07f-fc262f88deed++7575</key>
+		<string>http://svn.letv.cn/ThreeScreens</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://svn.letv.cn/ThreeScreens/LetvControlCenter/IPhone/UtilsKit/UtilsKit.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>759b0c0f-3107-4923-b07f-fc262f88deed++7575</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>759b0c0f-3107-4923-b07f-fc262f88deed++7575</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LetvControlCenter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
