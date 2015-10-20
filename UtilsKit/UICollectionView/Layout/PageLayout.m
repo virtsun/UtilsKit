@@ -1,6 +1,6 @@
 //
-// Created by yucheng on 15/10/20.
-// Copyright (c) 2015 ___FULLUSERNAME___. All rights reserved.
+// Created by l.t.zero on 15/10/20.
+// Copyright (c) 2015 sunlantao. All rights reserved.
 //
 
 #import "PageLayout.h"
