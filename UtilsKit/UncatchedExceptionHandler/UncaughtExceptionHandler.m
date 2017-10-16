@@ -11,6 +11,8 @@
 #include <libkern/OSAtomic.h>
 #include <execinfo.h>
 
+@import UIKit;
+
 NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
 NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
 NSString * const UncaughtExceptionHandlerAddressesKey = @"UncaughtExceptionHandlerAddressesKey";
@@ -54,16 +56,18 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 - (void)handleException:(NSException *)exception{
     
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Unhandled exception", nil)
-                              message:[NSString stringWithFormat:NSLocalizedString(@"You can try to continue but the application may be unstable.\n" "%@\n%@", nil),
-                                                                 [exception reason],
-                                                                 [exception userInfo][UncaughtExceptionHandlerAddressesKey]]
-                             delegate:self
-                    cancelButtonTitle:NSLocalizedString(@"Quit", nil)
-                    otherButtonTitles:NSLocalizedString(@"Continue", nil), nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"要播", nil)
+                                                   message:[NSString stringWithFormat:NSLocalizedString(@"非常抱歉，程序发生异常。\n" "%@\n%@", nil),
+                                                            [exception reason],
+                                                            [exception userInfo][UncaughtExceptionHandlerAddressesKey]]
+                                                  delegate:self
+                                         cancelButtonTitle:NSLocalizedString(@"退出", nil)
+                                         otherButtonTitles:nil];
     
     [alert show];
     
+#if defined(COPYRUNLOOP)
+    /*此方法貌似失效了*/
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();
     
     CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
@@ -75,6 +79,10 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     }
     
     CFRelease(allModes);
+#else
+    [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop currentRunLoop] run];
+#endif
     
     NSSetUncaughtExceptionHandler(NULL);
     
@@ -114,12 +122,13 @@ NSString* getAppInfo(){
 
 void MySignalHandler(int signal){
     
+    
     int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
     
     if (exceptionCount > UncaughtExceptionMaximum){
         return;
     }
- 
+    
     NSMutableDictionary *userInfo = [@{UncaughtExceptionHandlerSignalKey : @(signal)} mutableCopy];
     
     NSArray *callStack = [UncaughtExceptionHandler backtrace];
@@ -130,33 +139,56 @@ void MySignalHandler(int signal){
                                                                                                  reason:[NSString stringWithFormat:NSLocalizedString(@"Signal %d was raised.\n" @"%@", nil), signal, getAppInfo()]
                                                                                                userInfo:userInfo]
                                                            waitUntilDone:YES];
-      
-      
+    
     
 }
 
+void handle_pipe(int sig)
+{
+    //不做任何处理即可
+}
 void InstallUncaughtExceptionHandler(){
+    
+    //    /*屏蔽SIGPIPE异常*/
+    sigset_t signal_mask;
+    sigemptyset (&signal_mask);
     
     signal(SIGABRT, MySignalHandler);
     signal(SIGILL, MySignalHandler);
-    signal(SIGSEGV, MySignalHandler);
     signal(SIGFPE, MySignalHandler);
-    signal(SIGBUS, MySignalHandler);
-    signal(SIGPIPE, MySignalHandler);
-    
-    /*屏蔽SIGPIPE异常*/
-    sigset_t signal_mask;
-    sigemptyset (&signal_mask);
     sigaddset (&signal_mask, SIGABRT);
     sigaddset (&signal_mask, SIGILL);
-    sigaddset (&signal_mask, SIGSEGV);
     sigaddset (&signal_mask, SIGFPE);
+    
+    signal(SIGBUS, MySignalHandler);
+    signal(SIGPIPE, MySignalHandler);
+    signal(SIGSEGV, MySignalHandler);
     sigaddset (&signal_mask, SIGBUS);
     sigaddset (&signal_mask, SIGPIPE);
-
-    if (pthread_sigmask (SIG_BLOCK, &signal_mask, NULL) != 0) {
-        printf("block sigpipe error\n");
-    }
+    sigaddset (&signal_mask, SIGSEGV);
+    
+    
+    //    struct sigaction action;
+    //    action.sa_handler = handle_pipe;
+    //    sigemptyset(&action.sa_mask);
+    //    action.sa_flags = 0;
+    //    sigaction(SIGPIPE, &action, NULL);
+    //
+    //    struct sigaction bus;
+    //    bus.sa_handler = handle_pipe;
+    //    sigemptyset(&bus.sa_mask);
+    //    bus.sa_flags = 0;
+    //    sigaction(SIGBUS, &bus, NULL);
+    //
+    //    struct sigaction segv;
+    //    segv.sa_handler = handle_pipe;
+    //    sigemptyset(&segv.sa_mask);
+    //    segv.sa_flags = 0;
+    //    sigaction(SIGSEGV, &segv, NULL);
+    
+    //    if (pthread_sigmask (SIG_BLOCK, &signal_mask, NULL) != 0) {
+    //        printf("block sigpipe error\n");
+    //    }
     
 }
 
