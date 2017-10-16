@@ -125,6 +125,8 @@
 		8D6AEF56382131F38A4636DD /* CFSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSharer.h; sourceTree = "<group>"; };
 		8D6AEFBF331B330C7BCB3213 /* CircleActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleActivityIndicatorView.h; sourceTree = "<group>"; };
 		8D6AEFEC13EE86ABFCBD8D26 /* UIDevice+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Ext.h"; sourceTree = "<group>"; };
+		D41894451F94C8260014A69E /* BDHKLabelAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDHKLabelAttribute.m; sourceTree = "<group>"; };
+		D41894461F94C8260014A69E /* BDHKLabelAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDHKLabelAttribute.h; sourceTree = "<group>"; };
 		F14BA57A1B4F84C8002CBC06 /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		F1A4B5041B30FD2600686514 /* UtilsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UtilsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A4B5081B30FD2600686514 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -341,6 +343,15 @@
 			path = Spinner;
 			sourceTree = "<group>";
 		};
+		D41894441F94C7FF0014A69E /* BDHKLabelAttribute */ = {
+			isa = PBXGroup;
+			children = (
+				D41894461F94C8260014A69E /* BDHKLabelAttribute.h */,
+				D41894451F94C8260014A69E /* BDHKLabelAttribute.m */,
+			);
+			path = BDHKLabelAttribute;
+			sourceTree = "<group>";
+		};
 		F1A4B4FA1B30FD2600686514 = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +371,7 @@
 		F1A4B5061B30FD2600686514 /* UtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				D41894441F94C7FF0014A69E /* BDHKLabelAttribute */,
 				F1A4B5201B30FF2D00686514 /* GCDTimer */,
 				F1A4B5231B30FF2D00686514 /* Http */,
 				F1A4B5281B30FF2D00686514 /* NSDate */,
